@@ -40,16 +40,13 @@ bot = commands.Bot(command_prefix=prefix, intents=discord.Intents.all(), help_co
 # cogs list
 cogs = ['economy.econ', 'events.errors', 'economy.gambling', 'misc.music', 'misc.fun', 'misc.moderation']
 
-# bot run function
-def run():
-  bot.run(token)
-
 # on_ready event
 @bot.event
 async def on_ready():
   print("---------------------------")
   print("STATUS - ONLINE\nUSERNAME - {0}\nID - {1}\nDEVELOPER - AKINS\nVERSION - 4.0.2".format(bot.user, bot.user.id)) # prints things when the bot is onlines
   print("---------------------------")
+  await bot.change_presence(activity=discord.Game("Justifying the atrocities of \"Socialist\" states of the 20th century. My prefix is \"{0}\"".format(prefix)))
 
 # checks for keywords
 @bot.event # creates Event Listener
@@ -205,10 +202,8 @@ async def moderation(ctx):
   embed.set_footer(text="All of these commands require their respective permissions")
   await ctx.send(embed=embed)
 
-# load cogs & run bot
 if __name__ == '__main__':
   for cog in cogs:
-    bot.load_extension(cog) # loads cog to bot
-  run() # runs bot
-  while True:
-    on = True
+    bot.load_extension(cog)
+
+bot.run(token)
